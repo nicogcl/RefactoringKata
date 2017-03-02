@@ -10,7 +10,7 @@ namespace WalletKata.Test
 {
     internal class Wallets : IWalletProvider
     {
-        // TODO : improve IUser 
+        // TODO : should improve IUser and use an identifier. here reference equality is used ..
         private readonly Dictionary<IUser, List<Wallet>> usersWallets = new Dictionary<IUser, List<Wallet>>();
 
         public List<Wallet> FindWalletsByUser(IUser user)

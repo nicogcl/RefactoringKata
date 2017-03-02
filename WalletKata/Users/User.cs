@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace WalletKata.Users
 {
+    // TODO : Should implements Equals and use a member as a user identifier
     public class User : IUser
     {
         private List<IUser> friends = new List<IUser>();
