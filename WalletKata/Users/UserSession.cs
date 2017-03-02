@@ -2,7 +2,7 @@ using WalletKata.Exceptions;
 
 namespace WalletKata.Users
 {
-    public class UserSession
+    public class UserSession : IUserSession
     {
         private static readonly UserSession userSession = new UserSession();
 
@@ -13,7 +13,7 @@ namespace WalletKata.Users
             return userSession;
         }
 
-        public User GetLoggedUser()
+        public IUser GetLoggedUser()
         {
             throw new ThisIsAStubException("UserSession.IsUserLoggedIn() should not be called in an unit test");
         }

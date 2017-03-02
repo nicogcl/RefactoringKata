@@ -3,16 +3,16 @@ using System.Collections.Generic;
 
 namespace WalletKata.Users
 {
-    public class User
+    public class User : IUser
     {
-        private List<User> friends = new List<User>();
+        private List<IUser> friends = new List<IUser>();
 
         public IEnumerable GetFriends()
         {
             return friends;
         }
 
-        public void AddFriend(User friend)
+        public void AddFriend(IUser friend)
         {
             friends.Add(friend);
         }

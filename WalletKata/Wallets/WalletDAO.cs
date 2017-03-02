@@ -4,9 +4,9 @@ using WalletKata.Users;
 
 namespace WalletKata.Wallets
 {
-    public class WalletDAO
+    public class WalletDAO : IWalletProvider
     {
-        public static List<Wallet> FindWalletsByUser(User user)
+        public List<Wallet> FindWalletsByUser(IUser user)
         {
             throw new ThisIsAStubException("WalletDAO.FindWalletsByUser() should not be called in an unit test");
         }

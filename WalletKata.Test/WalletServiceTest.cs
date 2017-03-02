@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
+using WalletKata.Users;
 using WalletKata.Wallets;
 
 namespace WalletKata.Test
@@ -10,23 +11,23 @@ namespace WalletKata.Test
         [Test]
         public void TestGetWalletByUser1()
         {
-            // First goal is to be able to compile/run this kind of code
+             // Simplest test case
 
-            // Simplest case
-            var wallet = new WalletService();
+            Users.User loggedUser = new User();
+
+            var userSession = new MockUserSession(loggedUser);
+            Wallets walletProvider = new Wallets();
+
             var user = new Users.User();
-
-            Users.User loggedUser = null;
-            // TODO Mock UserSession 
-
             user.AddFriend(loggedUser);
 
             // Link wallets to user
-            // TODO
-            List<Wallet> userWallets = null;
+            var wallet = new Wallet();
+            walletProvider.AddWallet(user, wallet);
+            List<Wallet> userWallets = walletProvider.FindWalletsByUser(user);
 
-            // TODO Mock WalletDAO
-            var wallets = wallet.GetWalletsByUser(user);
+            var walletSvc = new WalletService(userSession, walletProvider);
+            var wallets = walletSvc.GetWalletsByUser(user);
 
             // Does NUnit Assert work on container(object)..?
             Assert.IsNotNull(wallets);
