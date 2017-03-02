@@ -7,9 +7,9 @@ namespace WalletKata.Users
     {
         private List<IUser> friends = new List<IUser>();
 
-        public IEnumerable<IUser> GetFriends()
+        public IReadOnlyCollection<IUser> GetFriends()
         {
-            return friends;
+            return friends.AsReadOnly();
         }
 
         public void AddFriend(IUser friend)
