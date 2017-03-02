@@ -31,20 +31,10 @@ namespace WalletKata.Wallets
         {
             List<Wallet> walletList = new List<Wallet>();
             IUser loggedUser = userSession.GetLoggedUser();
-            bool isFriend = false;
 
             if (loggedUser != null)
             {
-                foreach (User friend in user.GetFriends())
-                {
-                    if (friend.Equals(loggedUser))
-                    {
-                        isFriend = true;
-                        break;
-                    }
-                }
-
-                if (isFriend)
+                if (user.IsFriend(loggedUser))
                 {
                     walletList = walletProvider.FindWalletsByUser(user);
                 }

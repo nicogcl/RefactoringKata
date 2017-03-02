@@ -9,8 +9,10 @@ namespace WalletKata.Users
 {
     public interface IUser
     {
-        IEnumerable GetFriends();
+        IEnumerable<IUser> GetFriends();
 
         void AddFriend(IUser friend);
+
+        bool IsFriend(IUser user);
     }
 }
