@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
+using WalletKata.Exceptions;
 using WalletKata.Users;
 using WalletKata.Wallets;
 
@@ -11,8 +12,6 @@ namespace WalletKata.Test
         [Test]
         public void TestGetWalletByUser1()
         {
-             // Simplest test case
-
             Users.User loggedUser = new User();
 
             var userSession = new MockUserSession(loggedUser);
@@ -37,6 +36,40 @@ namespace WalletKata.Test
                 // TODO Implement Equals on Wallet
                 Assert.AreEqual(userWallets[i], wallets[i]);
             }
+        }
+
+        [Test]
+        public void TestGetWalletByUserNoUser()
+        {
+            var userSession = new MockUserSession(null);
+            Wallets walletProvider = new Wallets();
+
+            var user = new Users.User();
+
+            var walletSvc = new WalletService(userSession, walletProvider);
+            Assert.Throws<UserNotLoggedInException>(() => walletSvc.GetWalletsByUser(user));
+        }
+
+
+        [Test]
+        public void TestGetWalletByUserNotFriend()
+        {
+            Users.User loggedUser = new User();
+
+            var userSession = new MockUserSession(loggedUser);
+            Wallets walletProvider = new Wallets();
+
+            var user = new Users.User();
+
+            // Link wallets to user
+            var wallet = new Wallet();
+            walletProvider.AddWallet(user, wallet);
+            List<Wallet> userWallets = walletProvider.FindWalletsByUser(user);
+
+            var walletSvc = new WalletService(userSession, walletProvider);
+            var wallets = walletSvc.GetWalletsByUser(user);
+            Assert.IsNotNull(wallets);
+            Assert.AreEqual(0, wallets.Count);
         }
     }
 }

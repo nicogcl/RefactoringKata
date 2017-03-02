@@ -8,6 +8,10 @@ namespace WalletKata.Users
 {
     public interface IUserSession
     {
+        /// <summary>
+        /// Get current logged user
+        /// </summary>
+        /// <returns>Currently logged user or null if no user</returns>
         IUser GetLoggedUser();
     }
 }
