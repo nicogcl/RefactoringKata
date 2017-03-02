@@ -30,7 +30,7 @@ namespace WalletKata.Wallets
         public List<Wallet> GetWalletsByUser(User user)
         {
             if (user == null)
-                throw new ArgumentOutOfRangeException("user");
+                throw new ArgumentNullException("user");
 
             IUser loggedUser = userSession.GetLoggedUser();
             if (loggedUser != null)

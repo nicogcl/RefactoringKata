@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using WalletKata.Exceptions;
@@ -70,6 +71,18 @@ namespace WalletKata.Test
             var wallets = walletSvc.GetWalletsByUser(user);
             Assert.IsNotNull(wallets);
             Assert.AreEqual(0, wallets.Count);
+        }
+
+        [Test]
+        public void TestGetWalletByUserNull()
+        {
+            Users.User loggedUser = new User();
+
+            var userSession = new MockUserSession(loggedUser);
+            Wallets walletProvider = new Wallets();
+
+            var walletSvc = new WalletService(userSession, walletProvider);
+            Assert.Throws<ArgumentNullException>(() => walletSvc.GetWalletsByUser(null));
         }
     }
 }
