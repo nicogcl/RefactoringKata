@@ -29,17 +29,18 @@ namespace WalletKata.Wallets
 
         public List<Wallet> GetWalletsByUser(User user)
         {
-            List<Wallet> walletList = new List<Wallet>();
-            IUser loggedUser = userSession.GetLoggedUser();
+            if (user == null)
+                throw new ArgumentOutOfRangeException("user");
 
+            IUser loggedUser = userSession.GetLoggedUser();
             if (loggedUser != null)
             {
                 if (user.IsFriend(loggedUser))
                 {
-                    walletList = walletProvider.FindWalletsByUser(user);
+                    return walletProvider.FindWalletsByUser(user);
                 }
 
-                return walletList;
+                return new List<Wallet>();
             }
             else
             {
