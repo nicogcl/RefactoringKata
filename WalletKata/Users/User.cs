@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace WalletKata.Users
@@ -15,6 +16,10 @@ namespace WalletKata.Users
 
         public void AddFriend(IUser friend)
         {
+            if (friend == null)
+                throw new ArgumentNullException("friend");
+
+            // TODO : Check if is not already in the friends list
             friends.Add(friend);
         }
 
