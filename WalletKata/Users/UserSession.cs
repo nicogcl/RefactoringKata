@@ -13,7 +13,7 @@ namespace WalletKata.Users
             return userSession;
         }
 
-        public IUser GetLoggedUser()
+        public User GetLoggedUser()
         {
             throw new ThisIsAStubException("UserSession.IsUserLoggedIn() should not be called in an unit test");
         }

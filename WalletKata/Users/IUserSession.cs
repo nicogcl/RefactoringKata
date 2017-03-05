@@ -12,6 +12,6 @@ namespace WalletKata.Users
         /// Get current logged user
         /// </summary>
         /// <returns>Currently logged user or null if no user</returns>
-        IUser GetLoggedUser();
+        User GetLoggedUser();
     }
 }

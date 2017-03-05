@@ -10,10 +10,9 @@ namespace WalletKata.Test
 {
     internal class Wallets : IWalletProvider
     {
-        // TODO : should improve IUser and use an identifier. here reference equality is used ..
-        private readonly Dictionary<IUser, List<Wallet>> usersWallets = new Dictionary<IUser, List<Wallet>>();
+        private readonly Dictionary<User, List<Wallet>> usersWallets = new Dictionary<User, List<Wallet>>();
 
-        public List<Wallet> FindWalletsByUser(IUser user)
+        public List<Wallet> FindWalletsByUser(User user)
         {
             List<Wallet> wallets;
             if (usersWallets.TryGetValue(user, out wallets))
@@ -22,7 +21,7 @@ namespace WalletKata.Test
                 return new List<Wallet>();
         }
 
-        internal void AddWallet(IUser user, Wallet wallet)
+        internal void AddWallet(User user, Wallet wallet)
         {
             if (!usersWallets.ContainsKey(user))
                 usersWallets[user] = new List<Wallet>();

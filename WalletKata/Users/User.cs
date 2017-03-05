@@ -4,22 +4,51 @@ using System.Collections.Generic;
 
 namespace WalletKata.Users
 {
-    // TODO : Should implements Equals and use a member as a user identifier
-    public class User : IUser
+    public class User
     {
-        private List<IUser> friends = new List<IUser>();
+        /// <summary>
+        /// Unique user identifier
+        /// </summary>
+        /// <remarks>Comparing object reference is not good 
+        /// I choose to add a member acting as a unique identifier for user
+        /// User comparison is based on this id.
+        /// </remarks>
+        private readonly String id;
 
-        public IReadOnlyCollection<IUser> GetFriends()
+        private List<User> friends = new List<User>();
+
+        public User(String id)
+        {
+            if (String.IsNullOrEmpty(id))
+                throw new ArgumentNullException("id");
+            this.id = id;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+                return false;
+
+            User user = (User)obj;
+            return (user.id == id);
+        }
+
+        public override int GetHashCode()
+        {
+            return id.GetHashCode();
+        }
+
+        public IReadOnlyCollection<User> GetFriends()
         {
             return friends.AsReadOnly();
         }
 
-        public void AddFriend(IUser friend)
+        public void AddFriend(User friend)
         {
             if (friend == null)
                 throw new ArgumentNullException("friend");
 
-            // TODO : Check if is not already in the friends list
+            // Could check if is not already in the friends list
             friends.Add(friend);
         }
 
@@ -28,7 +57,7 @@ namespace WalletKata.Users
         /// </summary>
         /// <param name="user"></param>
         /// <returns>true if user is a friend or false else. Null user is not a friend</returns>
-        public bool IsFriend(IUser user)
+        public bool IsFriend(User user)
         {
             if (user == null)
                 return false;

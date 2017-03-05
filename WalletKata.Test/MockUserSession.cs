@@ -9,14 +9,14 @@ namespace WalletKata.Test
 {
     internal class MockUserSession : IUserSession
     {
-        private readonly IUser loggedUser;
+        private readonly User loggedUser;
 
-        internal MockUserSession(IUser user)
+        internal MockUserSession(User user)
         {
             this.loggedUser = user;
         }
 
-        public IUser GetLoggedUser()
+        public User GetLoggedUser()
         {
             return loggedUser;
         }

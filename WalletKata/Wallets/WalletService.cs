@@ -32,7 +32,7 @@ namespace WalletKata.Wallets
             if (user == null)
                 throw new ArgumentNullException("user");
 
-            IUser loggedUser = userSession.GetLoggedUser();
+            User loggedUser = userSession.GetLoggedUser();
             if (loggedUser != null)
             {
                 if (user.IsFriend(loggedUser))

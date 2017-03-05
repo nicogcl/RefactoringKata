@@ -13,17 +13,19 @@ namespace WalletKata.Test
         [Test]
         public void TestGetWalletByUser1()
         {
-            Users.User loggedUser = new User();
+            Users.User loggedUser = new User("user1");
 
             var userSession = new MockUserSession(loggedUser);
             Wallets walletProvider = new Wallets();
 
-            var user = new Users.User();
+            var user = new Users.User("user2");
             user.AddFriend(loggedUser);
 
             // Link wallets to user
-            var wallet = new Wallet();
-            walletProvider.AddWallet(user, wallet);
+            walletProvider.AddWallet(user, new Wallet("wallet1"));
+            walletProvider.AddWallet(user, new Wallet("wallet2"));
+            walletProvider.AddWallet(user, new Wallet("wallet3"));
+
             List<Wallet> userWallets = walletProvider.FindWalletsByUser(user);
 
             var walletSvc = new WalletService(userSession, walletProvider);
@@ -34,7 +36,6 @@ namespace WalletKata.Test
             Assert.AreEqual(userWallets.Count, wallets.Count);
             for (int i = 0; i < userWallets.Count; ++i)
             {
-                // TODO Implement Equals on Wallet
                 Assert.AreEqual(userWallets[i], wallets[i]);
             }
         }
@@ -45,7 +46,7 @@ namespace WalletKata.Test
             var userSession = new MockUserSession(null);
             Wallets walletProvider = new Wallets();
 
-            var user = new Users.User();
+            var user = new Users.User("user1");
 
             var walletSvc = new WalletService(userSession, walletProvider);
             Assert.Throws<UserNotLoggedInException>(() => walletSvc.GetWalletsByUser(user));
@@ -55,15 +56,15 @@ namespace WalletKata.Test
         [Test]
         public void TestGetWalletByUserNotFriend()
         {
-            Users.User loggedUser = new User();
+            Users.User loggedUser = new User("user1");
 
             var userSession = new MockUserSession(loggedUser);
             Wallets walletProvider = new Wallets();
 
-            var user = new Users.User();
+            var user = new Users.User("user2");
 
             // Link wallets to user
-            var wallet = new Wallet();
+            var wallet = new Wallet("wallet1");
             walletProvider.AddWallet(user, wallet);
             List<Wallet> userWallets = walletProvider.FindWalletsByUser(user);
 
@@ -76,7 +77,7 @@ namespace WalletKata.Test
         [Test]
         public void TestGetWalletByUserNull()
         {
-            Users.User loggedUser = new User();
+            Users.User loggedUser = new User("user1");
 
             var userSession = new MockUserSession(loggedUser);
             Wallets walletProvider = new Wallets();

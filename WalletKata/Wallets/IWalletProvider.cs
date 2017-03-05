@@ -9,6 +9,6 @@ namespace WalletKata.Wallets
 {
     public interface IWalletProvider
     {
-        List<Wallet> FindWalletsByUser(IUser user);
+        List<Wallet> FindWalletsByUser(User user);
     }
 }
